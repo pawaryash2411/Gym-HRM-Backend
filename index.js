@@ -114,6 +114,12 @@ app.use(
   require("./Routes/Performance/PerformanceIndicatorRouter")
 );
 
+// Stock Management
+app.use(
+  "/api/stock-management/item-category",
+  require("./Routes/StockManagement/ItemCategoryRoute")
+);
+
 // const test = async () => {
 //   let zkInstance = new ZKLib("192.168.1.201", 4370, 5200, 5000);
 //   try {
