@@ -12,12 +12,6 @@ const registerSuperAdmin = async (req, res) => {
       return res.status(400).json({ message: "Please enter a valid email" });
     }
 
-    const imageData = req.uploadedImageUrl;
-    console.log("Sidhu", imageData);
-    
-    if (!imageData) {
-      return res.status(403).json({ success: false, message: 'Image upload failed' });
-    }
 
     const userExists = await SuperAdminModel.findOne({ email });
 
@@ -25,14 +19,12 @@ const registerSuperAdmin = async (req, res) => {
       return res.status(400).json({ message: "User already exists" });
     }
 
-
     const newAdmin = await SuperAdminModel.create({
       email,
       password,
       defaultRoles: JSON.parse(defaultRoles),
       expiryDate,
       allowedDevices,
-      logo: imageData
     });
     res
       .status(200)

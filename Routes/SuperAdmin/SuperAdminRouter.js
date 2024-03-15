@@ -13,7 +13,7 @@ const uploadSingleImageToCloudinary = require("../../Middlewares/singleImgUpload
 
 const router = express.Router();
 
-router.post("/", requireAuth, upload.single('logo'), uploadSingleImageToCloudinary, registerSuperAdmin);
+router.post("/", requireAuth, registerSuperAdmin);
 router.put("/:id", updateSuperAdmin);
 
 router.get("/", getSuperAdmin);
