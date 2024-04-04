@@ -13,4 +13,4 @@ const StockItemCategorySchema = mongoose.Schema({
     timestamps: true,
 })
 
-module.exports = mongoose.model("Stock Item Category", StockItemCategorySchema);
+module.exports = mongoose.model("stock-item-category", StockItemCategorySchema);

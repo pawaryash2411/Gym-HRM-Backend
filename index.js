@@ -119,6 +119,10 @@ app.use(
   "/api/stock-management/item-category",
   require("./Routes/StockManagement/ItemCategoryRoute")
 );
+app.use(
+  "/api/stock-management/products",
+  require("./Routes/StockManagement/GymProductRoute")
+);
 
 // const test = async () => {
 //   let zkInstance = new ZKLib("192.168.1.201", 4370, 5200, 5000);
