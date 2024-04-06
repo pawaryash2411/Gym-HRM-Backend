@@ -1,10 +1,10 @@
-const GymProductModel = require("../../Models/StockManagement/GymProduct");
+const ItemBrandModel = require("../../Models/StockManagement/ItemBrand");
 
 const postData = async (req, res) => {
     try {
-        const { itemName, itemPrice, item_category, admin_id, itemQuantity, total_price, itemBrand } = req.body;
-        const itemData = await GymProductModel.create({
-            itemName, itemPrice, item_category, admin_id, itemQuantity, total_price, itemBrand
+        const { itemBrandName, admin_id } = req.body;
+        const itemData = await ItemBrandModel.create({
+            itemBrandName, admin_id
         });
 
         res.status(201).json({
@@ -19,7 +19,7 @@ const postData = async (req, res) => {
 
 const getAllData = async (req, res) => {
     try {
-        const itemAllData = await GymProductModel.find().populate('item_category').populate('itemBrand');;
+        const itemAllData = await ItemBrandModel.find()
         res.status(200).json({ success: true, itemAllData, message: "All Item Fetched successfully" });
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -30,10 +30,10 @@ const getAllData = async (req, res) => {
 const updateData = async (req, res) => {
     try {
         const { id } = req.params;
-        const { itemName, itemPrice, item_category, admin_id, itemQuantity, total_price, itemBrand } = req.body;
+        const { itemBrandName, admin_id } = req.body;
 
-        const updatedData = await GymProductModel.findByIdAndUpdate(id, {
-            itemName, itemPrice, item_category, admin_id, itemQuantity, total_price, itemBrand
+        const updatedData = await ItemBrandModel.findByIdAndUpdate(id, {
+            itemBrandName, admin_id
         }, { new: true });
 
         res.status(200).json({ success: true, updatedData, message: "Updated Successfully" });
@@ -46,7 +46,7 @@ const deleteData = async (req, res) => {
     try {
         const { id } = req.params;
 
-        await GymProductModel.findByIdAndDelete(id);
+        await ItemBrandModel.findByIdAndDelete(id);
 
         res.status(200).json({ success: true, message: "Removed Successfully" });
     } catch (error) {

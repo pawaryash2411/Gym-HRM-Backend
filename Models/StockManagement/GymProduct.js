@@ -9,6 +9,10 @@ const GymProductsSchema = mongoose.Schema({
         type: Number,
         required: true,
     },
+    itemBrand: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "item-brand",
+    },
     itemQuantity: {
         type: Number,
         required: true,
@@ -16,6 +20,10 @@ const GymProductsSchema = mongoose.Schema({
     item_category: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "stock-item-category",
+    },
+    total_price: {
+        type: Number,
+        required: true,
     },
     admin_id: {
         type: String,
