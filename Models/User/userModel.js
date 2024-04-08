@@ -21,11 +21,6 @@ const userSchema = mongoose.Schema(
       required: true,
     },
     card_no: String,
-    role: {
-      type: String,
-      required: true,
-    },
-
     permanent_address: {
       type: String,
       required: true,
@@ -59,6 +54,10 @@ const userSchema = mongoose.Schema(
     branch_id: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "branch",
+    },
+    membership_plan: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "membership-plans",
     },
     leave: [
       {

@@ -51,6 +51,7 @@ const getuser = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
 const getusers = async (req, res) => {
   const { id } = req.user;
   const admin = await AdminModel.findById(id);
@@ -58,7 +59,7 @@ const getusers = async (req, res) => {
     const date = new Date().toISOString().split("T").at(0);
     const users = await db
       .find({ branch_id: admin.branch_id })
-      .populate("leave monthly_pay_grade hourly_pay_grade");
+      .populate("leave monthly_pay_grade hourly_pay_grade membership_plan");
 
     res.status(200).json({ users });
   } catch (error) {
@@ -72,11 +73,11 @@ const registerUser = async (req, res) => {
     name,
     present_address,
     user_id,
-    role,
     permanent_address,
     department,
     card_no,
     joindate,
+    membership_plan,
     email,
     password,
     shift,
@@ -109,10 +110,10 @@ const registerUser = async (req, res) => {
       name,
       present_address,
       user_id,
-      role,
       permanent_address,
       card_no: `${card_no}`,
       department,
+      membership_plan,
       picture: uploadimg,
       joindate,
       email,
@@ -123,15 +124,16 @@ const registerUser = async (req, res) => {
       adminId,
       branch_id: admin.branch_id,
     });
-    const zkInstance = await connectMachineHelper();
-    await zkInstance.createSocket();
+    // const zkInstance = await connectMachineHelper();
+    // await zkInstance.createSocket();
 
-    await zkInstance.setUser(+user_id, user_id, name, password, 11, card_no);
-    const users = await zkInstance.getUsers();
+    // await zkInstance.setUser(+user_id, user_id, name, password, 11, card_no);
+    // const users = await zkInstance.getUsers();
 
     const userRegister = await newUser.save();
     res.status(200).json({ userRegister, users, message: "Staff Created" });
   } catch (error) {
+    console.log(error)
     res.status(500).json({ message: error.message });
   }
 };
@@ -143,7 +145,7 @@ const updateuser = async (req, res) => {
     name,
     present_address,
     user_id,
-    role,
+    membership_plan,
     // shift,
     permanent_address,
     department,
@@ -157,9 +159,8 @@ const updateuser = async (req, res) => {
 
   let picture;
   if (req.file) {
-    const dataUrl = `data:${
-      req.file.mimetype
-    };base64,${req.file.buffer.toString("base64")}`;
+    const dataUrl = `data:${req.file.mimetype
+      };base64,${req.file.buffer.toString("base64")}`;
     const result = await cloudinary.uploader.upload(dataUrl);
     picture = result.secure_url;
   }
@@ -178,7 +179,7 @@ const updateuser = async (req, res) => {
       hashedPassword = await bcrypt.hash(password, salt);
     }
 
-    const updateuser = await db.findByIdAndUpdate(
+    await db.findByIdAndUpdate(
       { _id: req.params.id },
       {
         $set: {
@@ -187,7 +188,7 @@ const updateuser = async (req, res) => {
           name,
           present_address,
           user_id,
-          role,
+          membership_plan,
           permanent_address,
           department,
           picture,

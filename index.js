@@ -127,6 +127,10 @@ app.use(
   "/api/stock-management/item-brand",
   require("./Routes/StockManagement/ItemBrandRoute")
 );
+app.use(
+  "/api/membership/membership-plans",
+  require("./Routes/PremiumMembership/MembershipPlanRoute")
+);
 
 // const test = async () => {
 //   let zkInstance = new ZKLib("192.168.1.201", 4370, 5200, 5000);
