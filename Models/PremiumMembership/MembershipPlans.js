@@ -10,7 +10,7 @@ const MembershipPlanSchema = mongoose.Schema({
         required: true,
     },
     plan_duration: {
-        type: String,
+        type: Number,
         required: true,
     },
     admin_id: {

@@ -1,20 +1,20 @@
 const mongoose = require("mongoose");
 
 const membershipPaymentSchema = mongoose.Schema({
-    email:
-    {
-        type: String,
-        required: true,
+    user_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "user",
     },
     subscriptionModel: {
-        type: String,
-        required: true,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "membership-plans",
     },
     isPaid: {
         type: Boolean,
     },
     paidAt: {
-        type: Date.now()
+        type: Date,
+        default: Date.now
     }
 },
     {

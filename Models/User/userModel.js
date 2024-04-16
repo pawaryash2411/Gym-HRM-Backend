@@ -73,7 +73,15 @@ const userSchema = mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "payrollhourly",
     },
-    paid: [],
+    subscription: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "membership-plans",
+    },
+
+    isSubscribed: {
+      type: Boolean,
+      default: false
+    }
   },
   {
     timestamps: true,

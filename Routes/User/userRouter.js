@@ -15,6 +15,7 @@ const {
   getusers,
   changepassword,
 } = require("../../Controllers/User/userController");
+const { getPayData, AddPayData } = require("../../Controllers/PremiumMembership/MembershipPaymentController")
 const { requireAuth } = require("../../Middlewares/requireAuth");
 
 const router = express.Router();
@@ -34,5 +35,7 @@ router.post("/forgot-password", forgotPassword);
 router.put("/reset-password/:token", resetPassword);
 router.delete("/:id", deleteuser);
 router.post("/change-password", requireAuth, changepassword);
+router.post("/add-pay", requireAuth, AddPayData);
+router.get("/get-pay", requireAuth, getPayData);
 
 module.exports = router;
